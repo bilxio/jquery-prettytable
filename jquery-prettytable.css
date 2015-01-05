@@ -1,0 +1,8 @@
+.prettytable{
+    table-layout: fixed;
+}
+.prettytable td,.prettytable th{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

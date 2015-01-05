@@ -1,0 +1,7 @@
+h4{margin-top: 40px;}
+.table{margin-bottom: 0;}
+.table tbody{color: #696969;}
+.example-container{padding-top: 20px; padding-bottom: 40px;}
+.example-table-contaner{border: 1px dashed #f4db8c;}
+.example-table-contaner table th:nth-child(2n),
+.example-table-contaner table td:nth-child(2n){background-color: #f0f0f0;}

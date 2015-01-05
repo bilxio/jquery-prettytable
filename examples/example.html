@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Example - Pretty Table</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../jquery-prettytable.css" />
+  <link rel="stylesheet" href="example.css" />
+</head>
+<body>
+
+<div class="container example-container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h4>Without <code>pretty-table</code></h4>
+      <div class="example-table-contaner">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Foo</td>
+              <td>$10.05</td>
+              <td>http://www.amazon.com/</td>
+            </tr>
+            <tr>
+              <td>Kindle Paper-White</td>
+              <td>$79</td>
+              <td>http://www.amazon.com/dp/B00I15SB16/ref=br_imp_ara-1/186-1286143-8398233?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=desktop-hero-1&pf_rd_r=1391JYAK2JF5DVHMRWXC&pf_rd_t=36701&pf_rd_p=2014482802&pf_rd_i=desktop</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> <!-- /.table-container -->
+    </div><!-- /.col-md-6 -->
+    <div class="col-md-6 col-md-offset-3">
+      <h4>With <code>pretty-table</code> <small>apply default size of columns</small></h4>
+      <div class="example-table-contaner">
+        <table class="table prettytable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Foo</td>
+              <td>$10.05</td>
+              <td>http://www.amazon.com/</td>
+            </tr>
+            <tr>
+              <td>Kindle Paper-White</td>
+              <td>$79</td>
+              <td>http://www.amazon.com/dp/B00I15SB16/ref=br_imp_ara-1/186-1286143-8398233?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=desktop-hero-1&pf_rd_r=1391JYAK2JF5DVHMRWXC&pf_rd_t=36701&pf_rd_p=2014482802&pf_rd_i=desktop</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> <!-- /.table-container -->
+    </div><!-- /.col-md-6 -->
+
+    <div class="col-md-6 col-md-offset-3">
+      <h4>With <code>pretty-table</code> <small>auto resize columns</small></h4>
+      <div class="example-table-contaner">
+        <table class="table prettytable" data-role="prettytable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th data-width=230>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Foo</td>
+              <td>$10.05</td>
+              <td>http://www.amazon.com/</td>
+            </tr>
+            <tr>
+              <td>Kindle Paper-White</td>
+              <td>$79</td>
+              <td>http://www.amazon.com/dp/B00I15SB16/ref=br_imp_ara-1/186-1286143-8398233?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=desktop-hero-1&pf_rd_r=1391JYAK2JF5DVHMRWXC&pf_rd_t=36701&pf_rd_p=2014482802&pf_rd_i=desktop</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> <!-- /.table-container -->
+    </div><!-- /.col-md-6 -->
+  </div>
+</div>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" ></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="../jquery-prettytable.js"></script>
+<script>
+  $(function(){
+    $('.table[data-role=prettytable]').prettyTable();
+  })
+</script>
+</body>
+</html>
