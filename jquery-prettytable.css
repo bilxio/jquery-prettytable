@@ -6,3 +6,29 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.prettytable-scrollable{
+  margin-bottom: 0;
+}
+.prettytable-scrollable .table-cell{
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow: hidden;
+}
+.prettytable-scrollable.table-bordered{
+  border: none;
+}
+.prettytable-scrollable.table-bordered td:first-child, 
+.prettytable-scrollable.table-bordered th:first-child{
+  border-left: none;
+}
+.prettytable-scrollable.table-bordered td:last-child,
+.prettytable-scrollable.table-bordered th:last-child{
+  border-right: none;
+}
+.prettytable-scrollable.table-bordered tbody tr:last-child td{
+  border-bottom: none;
+}
+.prettytable-scroll-container{
+  overflow-x: auto;
+}
