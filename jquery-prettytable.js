@@ -23,6 +23,11 @@
     return !!obj && toString.call(obj) === '[object Function]';
   },
 
+  /**
+   * 文字在浏览器中渲染之后的实际宽度，单位是像素。
+   * @param text {string} 要获得宽度的字符串
+   * @param font {string} 指定应用的字体，默认为 `12px arial`
+   */
   textWidth = function(text, font) {
     var f = font || '12px arial',
         o = $('<div>' + text + '</div>')
@@ -35,6 +40,20 @@
         w = o.width();
     o.remove();
     return w;
+  },
+
+  /**
+   * 获取字符串实际长度。中文字符长度为2，英文字符为1
+   * @param str {string} 要获得长度的字符串
+   */
+  textLength = function(str) {
+      var realLength = 0, len = str.length, charCode = -1;
+      for (var i = 0; i < len; i++) {
+          charCode = str.charCodeAt(i);
+          if (charCode >= 0 && charCode <= 128) realLength += 1;
+          else realLength += 2;
+      }
+      return realLength;
   },
 
   trim = String.prototype.trim ? function(text) {
@@ -52,44 +71,89 @@
         hasScroller = $el.data('scroller') || false;
 
     this.options = $.extend({
+
       /**
        * 滚动条。默认不显示滚动条。
        * 取值 'x' 表示支持水平滚动条。
        */
       scroller: hasScroller,
+
       /**
        * 固定预留宽度
        */
-      fixedPadding: 40,
+      fixedPadding: 20,
+
       /**
        * 考虑图标宽度
        */
       iconWidth: 20,
+
       /**
        * 计算最大列宽，默认直接返回计算好的最大列宽
        * @param headerColumn {DOM object}
        * @param maxColumnWidth {int}
        */
       maxColumnWidth : function (headerColumn, maxColumnWidth) {
-        var metaColumnWidth = this.metaColumnWidth(headerColumn);
-        if (metaColumnWidth) {
-          return metaColumnWidth;
+        var width = maxColumnWidth;
+        var $hc = $(headerColumn);
+        var iconWidth = this.iconWidth;
+
+        if ($hc.find('.iconfont')[0]) {
+          width += iconWidth;
         }
-        return maxColumnWidth;
+        if ($hc.find('.filter:visible')[0]) {
+          width += iconWidth;
+        }
+        if ($hc.find('.sorter:visible')[0]) {
+          width += iconWidth;
+        }
+        return width;
       },
+
       /**
        * 最大列宽限制
        */
       metaColumnWidth : function (headerColumn) {
-        return parseInt($(headerColumn).data('width'));
+        var w = $(headerColumn).data('width');
+        return $.isNumeric(w) ? parseInt(w) : false;
       },
 
       /**
        * @param headerColumn {DOM object}
-       * @param width {int}
+       * @param width {int} Width for this column.
+       * @param metaColumnWidth {int|string|false} Predefined width for this column. use 
+       *    extra attr `data-width` to define.
        */
-      setColumnWidth : function (headerColumn, width) {
-        $(headerColumn).css('width', width + 'px');  
+      setColumnWidth : function (headerColumn, width, metaColumnWidth) {
+        var maxColumnWidth = width;
+        var metaWidth = metaColumnWidth;
+        var hasScroller = !!this.scroller;
+        var $hc = $(headerColumn);
+        var isFlex = $hc.data('width') === 'flex';
+        var fixedWidth = $.isNumeric($hc.data('fixed-width')) ? 
+            parseInt($hc.data('fixed-width')) : false;
+
+        // `flex` means don't set width any more.
+        if (isFlex) {
+          return;
+        }
+
+        // 综合考虑指定列宽和动态计算值
+        if ($.isNumeric(metaWidth)) {
+          metaWidth += this.fixedPadding;
+          maxColumnWidth = Math.min(maxColumnWidth, metaWidth);
+        }
+
+        // 强制指定列宽
+        if (fixedWidth) {
+          maxColumnWidth = fixedWidth;
+        }
+
+        //if (hasScroller || !!metaColumnWidth) {
+          $hc.css('width', maxColumnWidth + 'px');
+        //} else {
+        //  $hc.css('maxWidth', maxColumnWidth + 'px');
+        //}
       }
     }, options);
     this.init();
@@ -152,7 +216,7 @@
     }
 
     var adjCol = function(colIdx) {
-      var cols = table.find('tr td:nth-child(' + (colIdx + 1) + ')'),
+      var cols = table.find('tbody:visible tr td:nth-child(' + (colIdx + 1) + ')'),
           maxColumnWidth,
           metaColumnWidth,
           maxLengthText = '',
@@ -161,52 +225,28 @@
           headerColumn;
 
       cols.each(function(idx, col) {
-        var t = trim($(col).text());
-        maxLengthText = 
-          (t.length > trim(maxLengthText).length) ? t : maxLengthText;
+        var t = trim($(col).text()) || '';
+        maxLengthText = (textLength(t) > textLength(trim(maxLengthText))) ?
+          t : maxLengthText;
       });
 
       headerColumn = tableHeaderRow.find('th').eq(colIdx);
     
       // find out the longest text among body rows and header row
-      if (trim(headerColumn.text()).length > maxLengthText.length)
+      if (textLength(trim(headerColumn.text())) > textLength(maxLengthText))
         maxLengthText = trim(headerColumn.text());
 
       // calculate the real width for the longest text as column width in pixel
       maxColumnWidth = textWidth(maxLengthText, font) + fixedPadding;
-      
-      if (headerColumn.find('.iconfont')[0]) {
-        maxColumnWidth += iconWidth;
-      }
-      if (headerColumn.find('.filter:visible')[0]) {
-        headerColumn.find('.table-cell').css('paddingLeft', iconWidth);
-      }
-      if (headerColumn.find('.sorter:visible')[0]) {
-        headerColumn.find('.table-cell').css('paddingRight', iconWidth);
-      }
 
       maxColumnWidth = isFunction(opts.maxColumnWidth) ? 
         opts.maxColumnWidth(headerColumn[0], maxColumnWidth) : maxColumnWidth;
 
       metaColumnWidth = isFunction(opts.metaColumnWidth) ?
-        opts.metaColumnWidth(headerColumn[0]) : false;
+          opts.metaColumnWidth(headerColumn[0]) : false;
 
-      // 综合考虑指定列宽和动态计算值
-      if (!!metaColumnWidth) {
-        metaColumnWidth += fixedPadding;
-        maxColumnWidth = Math.min(maxColumnWidth, metaColumnWidth);
-        if (hasScroller) {
-          headerColumn.css('width', maxColumnWidth + 'px');
-        } else {
-          headerColumn.css('max-width', maxColumnWidth + 'px');
-        }
-        tableWidth += maxColumnWidth;
-      }
-      // 只应用动态计算值
-      else {
-        opts.setColumnWidth(headerColumn[0], maxColumnWidth);
-        tableWidth += maxColumnWidth;
-      }
+      // apply width to column
+      opts.setColumnWidth(headerColumn[0], maxColumnWidth, metaColumnWidth);
     };
 
     for (var colIdx = 0; colIdx < colSize; colIdx++) {
@@ -272,6 +312,7 @@
       return this.each(function(){
         if ($(this).data('prettyTable'))
           return;
+        $(this).toggleClass('prettytable', true);
         $(this).data('prettyTable', new PrettyTable(this, options));
       });
     }
@@ -282,6 +323,10 @@
   $.fn.prettyTable = Plugin;
   $.fn.prettyTable.Constructor = PrettyTable;
 
+  $.PrettyTable = {
+    textWidth: textWidth,
+    textLength: textLength
+  };
 
   // PRETTYTABLE NO CONFLICT
   // =======================

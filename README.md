@@ -16,6 +16,34 @@ Enable prettytable via javascript:
 $('.table[data-role=prettytable]').prettyTable();
 ```
 
+Set max column width:
+```html
+<table data-role="prettytable">
+  <thead>
+    <tr>
+      <th data-width="100">
+        ...
+```
+> Will apply the min value of `data-width` and dynamic calculated finally.
+
+Set fixed column width:
+```html
+<table data-role="prettytable">
+  <thead>
+    <tr>
+      <th data-fixed-width="100">
+        ...
+```
+
+Set flex column width:
+```html
+<table data-role="prettytable">
+  <thead>
+    <tr>
+      <th data-width="flex">
+        ...
+```
+
 ### Options
 Options can be passed via data attributes or JavaScript.
 
@@ -24,7 +52,7 @@ Options can be passed via data attributes or JavaScript.
 |Name |Type|Default|Desciption|
 |-----|----|-------|----------|
 |scroller|string or false|false|enable horizontal scroller or not|
-|fixedPadding|int|40|Reserved width for header column|
+|fixedPadding|int|20|Reserved width for header column|
 |iconWidth|int|20|Extra icon width such as question mark|
 |maxColumnWidth|function|-|-|
 
@@ -79,6 +107,7 @@ $(document.body).on('lock.pt', '.prettytable', function() {
 ### History
 
 - v0.1.0, Dec 31, 2014, first release with only kernal features.
+- v0.1.1, Jan 07, 2014
 
 ## FAQ
 
@@ -95,5 +124,5 @@ Add an additional attribute to the `<th>` tag,
 
 ## More info
 
-- created by [Xiong Zhengdong](http://www.billworks.cc)
+- by [Xiong Zhengdong](http://www.billworks.cc)
 - since Dec 31, 2014
