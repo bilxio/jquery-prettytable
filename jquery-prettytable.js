@@ -155,7 +155,7 @@
       var cols = table.find('tr td:nth-child(' + (colIdx + 1) + ')'),
           maxColumnWidth,
           metaColumnWidth,
-          maxLengthText,
+          maxLengthText = '',
           paddingLeft,
           paddingRight,
           headerColumn;
@@ -163,7 +163,7 @@
       cols.each(function(idx, col) {
         var t = trim($(col).text());
         maxLengthText = 
-          t.length > trim(maxLengthText).length ? t : maxLengthText;
+          (t.length > trim(maxLengthText).length) ? t : maxLengthText;
       });
 
       headerColumn = tableHeaderRow.find('th').eq(colIdx);
