@@ -6,57 +6,71 @@
  */
 
 module.exports = function(grunt) {
-  grunt.initConfig({
 
-    pkg: grunt.file.readJSON('package.json'),
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
 
-    clean: {
-      dist: [
-        'tmp/'
-      ]
-    },
+        clean: {
+            dist: [
+                'tmp/'
+            ]
+        },
 
-    concat: {
-         options: {
-             separator: ';',
-             stripBanners: true
-         },
-         dist: {
-             src: [
-                 "jquery-prettytable.js"
-             ],
-             dest: "tmp/jquery-prettytable.js"
-         }
-     },
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc'
+            },
+            core: {
+                src: 'jquery-prettytable.js'
+            }
+        },
 
-     uglify: {
-         options: {
-         },
-         dist: {
-             files: {
-                 'jquery-prettytable.min.js': 'tmp/jquery-prettytable.js'
-             }
-         }
-     },
-     
-     cssmin: {
-         options: {
-             keepSpecialComments: 0
-         },
-         compress: {
-             files: {
-                 'jquery-prettytable.min.css': [
-                     "jquery-prettytable.css"
-                 ]
-             }
-         }
-     }
-  });
- 
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
- 
-  grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin']);
+        concat: {
+            options: {
+                separator: ';',
+                stripBanners: true
+            },
+            dist: {
+                src: [
+                    "jquery-prettytable.js"
+                ],
+                dest: "tmp/jquery-prettytable.js"
+            }
+        },
+
+        uglify: {
+            options: {},
+            dist: {
+                files: {
+                    'jquery-prettytable.min.js': 'tmp/jquery-prettytable.js'
+                }
+            }
+        },
+
+        cssmin: {
+            options: {
+                keepSpecialComments: 0
+            },
+            compress: {
+                files: {
+                    'jquery-prettytable.min.css': [
+                        "jquery-prettytable.css"
+                    ]
+                }
+            }
+        }
+    });
+
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+
+    // Default task
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin']);
+
+    // Travis CI task.
+    grunt.registerTask('travis', 'jshint');
+
 };

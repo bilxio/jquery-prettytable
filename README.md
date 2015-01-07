@@ -3,11 +3,12 @@ jquery-prettytable
 
 >Make your table looks pretty.
 
+[![Build Status](https://travis-ci.org/bilxio/jquery-prettytable.png)](https://travis-ci.org/bilxio/jquery-prettytable)
+
 ## Requirements
 
 - jQuery 2.1.0+
 - Bootstrap 3
-- Underscore 1.7.0+
 
 ## Usage
 
@@ -25,6 +26,15 @@ Set max column width:
         ...
 ```
 > Will apply the min value of `data-width` and dynamic calculated finally.
+
+Set column width according on `data-min-width` and auto calculated value:
+```html
+<table data-role="prettytable">
+  <thead>
+    <tr>
+      <th data-min-width="100">
+        ...
+```
 
 Set fixed column width:
 ```html
@@ -106,8 +116,12 @@ $(document.body).on('lock.pt', '.prettytable', function() {
 
 ### History
 
-- v0.1.0, Dec 31, 2014, first release with only kernal features.
-- v0.1.1, Jan 07, 2014
+- __v0.1.0__  Dec 31, 2014
+  first release with only kernal features.
+- __v0.1.1__  Jan 07, 2014
+- __v0.1.2__
+  +Remove underscore.js as a dependency.
+  +Add travis-CI support.
 
 ## FAQ
 

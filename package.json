@@ -1,13 +1,13 @@
 {
   "name": "jquery-prettytable",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Make your table looks pretty.",
   "main": "jquery-prettytable.js",
   "directories": {
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt travis --verbose"
   },
   "repository": {
     "type": "git",
