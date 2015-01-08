@@ -119,9 +119,11 @@ $(document.body).on('lock.pt', '.prettytable', function() {
 - __v0.1.0__  Dec 31, 2014
   first release with only kernal features.
 - __v0.1.1__  Jan 07, 2014
-- __v0.1.2__
+  Bug fix
+- __v0.1.2__  Jan 08, 2014
   +Remove underscore.js as a dependency.
   +Add travis-CI support.
+  +Add `min-width` support.
 
 ## FAQ
 
