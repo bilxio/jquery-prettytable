@@ -124,6 +124,8 @@ $(document.body).on('lock.pt', '.prettytable', function() {
   +Remove underscore.js as a dependency.
   +Add travis-CI support.
   +Add `min-width` support.
+- __v0.1.3__ Jan 09, 2014
+  +Fixed font calculated bug for firefox browser
 
 ## FAQ
 

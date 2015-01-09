@@ -2,7 +2,7 @@
  * Pretty Table
  * https://github.com/bilxio/jquery-prettytable
  * =================================================================
- * version: 0.1.2
+ * version: 0.1.3
  * author: Xiong Zhengdong<xiongzhengdong@admaster.com.cn>
  * Licensed under MIT
  * ================================================================= */
@@ -214,7 +214,9 @@
             tableParent = table.parent(),
             tableOriginWidth = tableParent.outerWidth(),
             tableParentOverflow = table.parent().css('overflow'),
-            font = table.css('font'),
+            font = table.css('font-weight') + ' ' +
+                    table.css('font-size') + ' ' + 
+                    table.css('font-family'),
             colSize = table.find('thead > tr:first > th').size(),
 
             i = 0,
