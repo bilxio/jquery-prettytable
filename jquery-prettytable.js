@@ -3,7 +3,7 @@
  * https://github.com/bilxio/jquery-prettytable
  * =================================================================
  * version: 0.1.3
- * author: Xiong Zhengdong<xiongzhengdong@admaster.com.cn>
+ * author: Bill Xiong<haibxz@gmail.com>
  * Licensed under MIT
  * ================================================================= */
 
