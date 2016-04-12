@@ -4,11 +4,11 @@
   "version": "0.1.3",
   "homepage": "https://github.com/bilxio/jquery-prettytable",
   "authors": [
-    "Zhengdong Xiong <xiongzhengdong@admaster.com.cn>"
+    "Bill Xiong<haibxz@gmail.com>"
   ],
-  "description": "Make your table looks pretty.",
+  "description": "Make your table pretty.",
   "keywords": [
-    "table"
+    "table", "scroller"
   ],
   "license": "MIT",
   "ignore": [
