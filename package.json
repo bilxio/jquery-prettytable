@@ -1,6 +1,6 @@
 {
   "name": "jquery-prettytable",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Make your table looks pretty.",
   "main": "jquery-prettytable.js",
   "directories": {
@@ -53,5 +53,9 @@
   },
   "engines": {
     "node": "~0.10.1"
-  }
+  },
+  "files": [
+    "jquery-prettytable.{css,js,map}",
+    "jquery-prettytable.min.{css,js,map}"
+  ]
 }
