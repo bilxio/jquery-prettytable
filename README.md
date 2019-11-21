@@ -140,7 +140,3 @@ Add an additional attribute to the `<th>` tag,
         ...
 ```
 
-## More info
-
-- by [Xiong Zhengdong](http://www.billworks.cc)
-- since Dec 31, 2014

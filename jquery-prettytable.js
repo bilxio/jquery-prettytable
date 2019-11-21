@@ -2,7 +2,7 @@
  * Pretty Table
  * https://github.com/bilxio/jquery-prettytable
  * =================================================================
- * version: 0.1.3
+ * version: 0.1.4
  * author: Bill Xiong<haibxz@gmail.com>
  * Licensed under MIT
  * ================================================================= */
